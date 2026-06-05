@@ -1,14 +1,8 @@
-﻿# 🍜 校园小吃点评平台
+# 🍜 校园小吃点评平台
 
 > 纯粹客观、零商业化的大学生校园美食评价平台
 
 一个基于 **Next.js 14 + Prisma + SQLite + Tailwind CSS** 构建的全栈校园美食点评应用，旨在为大学生提供真实、可信的校园周边美食参考。
-
----
-
-## 📸 项目截图
-
-> 访问 http://localhost:3000 查看完整效果
 
 ---
 
@@ -48,7 +42,7 @@
 
 ## 🏗️ 技术架构
 
-`
+```text
 ┌─────────────────────────────────────────┐
 │              前端（Next.js 14）          │
 │  React 18 + TypeScript + Tailwind CSS   │
@@ -70,19 +64,19 @@
 │          SQLite 数据库                   │
 │  轻量零配置 · 适合开发和小规模部署       │
 └─────────────────────────────────────────┘
-`
+```
 
 ### 数据模型
 
 | 模型 | 说明 | 关键字段 |
 |------|------|----------|
-| User | 用户 | phone, nickname, level, role, reviewCount |
-| Merchant | 商户 | name, category, rating, 五维评分, popularDishes |
-| Review | 评价 | 五维评分, content, overallRating, riskScore, status |
-| Reply | 回复 | content, isMerchant |
-| Like | 点赞 | userId + reviewId 唯一约束 |
-| Favorite | 收藏 | userId + merchantId 唯一约束, groupName |
-| Report | 举报 | reason, description, status |
+| `User` | 用户 | phone, nickname, level, role, reviewCount |
+| `Merchant` | 商户 | name, category, rating, 五维评分, popularDishes |
+| `Review` | 评价 | 五维评分, content, overallRating, riskScore, status |
+| `Reply` | 回复 | content, isMerchant |
+| `Like` | 点赞 | userId + reviewId 唯一约束 |
+| `Favorite` | 收藏 | userId + merchantId 唯一约束, groupName |
+| `Report` | 举报 | reason, description, status |
 
 ---
 
@@ -95,22 +89,22 @@
 
 ### 1. 安装依赖
 
-`ash
+```bash
 npm install
-`
+```
 
 ### 2. 配置环境变量
 
-复制或创建 .env 文件：
+复制或创建 `.env` 文件：
 
-`env
+```env
 DATABASE_URL="file:./dev.db"
 JWT_SECRET="your-secret-key-change-in-production"
-`
+```
 
 ### 3. 初始化数据库
 
-`ash
+```bash
 # 生成 Prisma Client
 npm run db:generate
 
@@ -119,13 +113,13 @@ npm run db:push
 
 # 填充种子数据（10 家商户、3 个用户、若干条评价）
 npm run db:seed
-`
+```
 
 ### 4. 启动开发服务器
 
-`ash
+```bash
 npm run dev
-`
+```
 
 访问 http://localhost:3000 查看效果。
 
@@ -133,13 +127,13 @@ npm run dev
 
 | 手机号 | 密码 | 昵称 | 等级 |
 |--------|------|------|------|
-| 13800000001 | 123456 | 吃货小王 | Lv3 美食家 |
-| 13800000002 | 123456 | 每天都要喝奶茶 | Lv4 品鉴官 |
-| 13800000003 | 123456 | 面食爱好者 | Lv2 食客 |
+| `13800000001` | `123456` | 吃货小王 | Lv3 美食家 |
+| `13800000002` | `123456` | 每天都要喝奶茶 | Lv4 品鉴官 |
+| `13800000003` | `123456` | 面食爱好者 | Lv2 食客 |
 
 ### 其他常用命令
 
-`ash
+```bash
 # 查看数据库内容（Prisma Studio 可视化工具）
 npm run db:studio
 
@@ -154,13 +148,13 @@ npm start
 
 # 代码检查
 npm run lint
-`
+```
 
 ---
 
 ## 📁 项目结构
 
-`
+```text
 校园小吃点评/
 ├── prisma/
 │   ├── schema.prisma          # 数据库模型定义
@@ -208,7 +202,7 @@ npm run lint
 ├── tsconfig.json
 ├── postcss.config.js
 └── package.json
-`
+```
 
 ---
 
@@ -218,59 +212,59 @@ npm run lint
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| POST | /api/auth/register | 用户注册 |
-| POST | /api/auth/login | 用户登录 |
-| POST | /api/auth/logout | 用户登出 |
-| GET | /api/auth/me | 获取当前登录用户信息 |
+| `POST` | `/api/auth/register` | 用户注册 |
+| `POST` | `/api/auth/login` | 用户登录 |
+| `POST` | `/api/auth/logout` | 用户登出 |
+| `GET` | `/api/auth/me` | 获取当前登录用户信息 |
 
 ### 商户
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/merchants | 商户列表（支持分类筛选、排序、搜索） |
-| GET | /api/merchants/:id | 商户详情 |
+| `GET` | `/api/merchants` | 商户列表（支持分类筛选、排序、搜索） |
+| `GET` | `/api/merchants/:id` | 商户详情 |
 
 ### 评价
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/reviews | 评价列表 |
-| POST | /api/reviews | 创建评价 |
-| GET | /api/reviews/:id | 评价详情 |
-| POST | /api/reviews/:id/like | 点赞 / 取消点赞 |
-| POST | /api/reviews/:id/reply | 回复评价 |
+| `GET` | `/api/reviews` | 评价列表 |
+| `POST` | `/api/reviews` | 创建评价 |
+| `GET` | `/api/reviews/:id` | 评价详情 |
+| `POST` | `/api/reviews/:id/like` | 点赞 / 取消点赞 |
+| `POST` | `/api/reviews/:id/reply` | 回复评价 |
 
 ### 收藏 & 举报
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/favorites | 收藏列表 |
-| POST | /api/favorites | 添加 / 取消收藏 |
-| POST | /api/reports | 提交举报 |
+| `GET` | `/api/favorites` | 收藏列表 |
+| `POST` | `/api/favorites` | 添加 / 取消收藏 |
+| `POST` | `/api/reports` | 提交举报 |
 
 ### 用户
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/user/profile | 获取用户资料 |
-| PUT | /api/user/profile | 更新用户资料 |
+| `GET` | `/api/user/profile` | 获取用户资料 |
+| `PUT` | `/api/user/profile` | 更新用户资料 |
 
 ### 管理后台
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/admin/stats | 平台统计数据 |
-| GET | /api/admin/reviews | 待审核评价列表 |
-| POST | /api/admin/reviews | 审核评价（通过/拒绝/隐藏） |
-| GET | /api/admin/reports | 举报列表 |
+| `GET` | `/api/admin/stats` | 平台统计数据 |
+| `GET` | `/api/admin/reviews` | 待审核评价列表 |
+| `POST` | `/api/admin/reviews` | 审核评价（通过/拒绝/隐藏） |
+| `GET` | `/api/admin/reports` | 举报列表 |
 
 ---
 
 ## 🎯 评分计算公式
 
-`
+```text
 overallRating = (口味 × 0.35) + (卫生 × 0.20) + (服务 × 0.15) + (性价比 × 0.30) + (份量 × 0.10)
-`
+```
 
 | 维度 | 权重 | 说明 |
 |------|------|------|
